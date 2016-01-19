@@ -45,11 +45,6 @@ app.on('activate', () => {
 });
 
 app.on('ready', () => {
-	mainWindow = createMainWindow();
-
-
-
-
-
-		input.sendcoords();
+	// mainWindow = createMainWindow();
+	input.sendevents();
 });
