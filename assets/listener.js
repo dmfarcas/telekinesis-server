@@ -3,7 +3,7 @@ var robot = require("robotjs");
 var io = require('socket.io')(6910);
 
 //Speed up the mouse.
-robot.setMouseDelay(5);
+robot.setMouseDelay(0);
 
 var twoPI = Math.PI * 2.0;
 var screenSize = robot.getScreenSize();
@@ -16,10 +16,7 @@ var moveY;
 exports.sendevents =  function () {
   io.on('connection', function (socket) {
     socket.on('dragstart', function(response) {
-
-      // console.log("Started at " + initpos.x + " " +initpos.y );
-      console.log("Screen size is: " + width);
-      console.log("Height is: " + height);
+      initpos = robot.getMousePos();
       console.log(">>DRAG START<<<");
     });
     socket.on('dragend', function () {
@@ -27,10 +24,11 @@ exports.sendevents =  function () {
     });
 
     socket.on('dragging', function(response) {
-      initpos = robot.getMousePos();
-      moveX = initpos.x + response.x;
-      moveY = initpos.y +  response.y;
+      console.log(initpos.x," + ", initpos.y);
+      moveX = Math.trunc(initpos.x) + Math.trunc(response.x)*2;
+      moveY = Math.trunc(initpos.y) +  Math.trunc(response.y)*2;
       robot.moveMouse(moveX, moveY);
+      console.log("X is at " + moveX +  ", y is at " + moveY);
       console.log("X is at " + moveX +  ", y is at " + moveY);
     });
 
