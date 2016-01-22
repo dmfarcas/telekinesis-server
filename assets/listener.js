@@ -4,11 +4,6 @@ var io = require('socket.io')(6910);
 
 //Speed up the mouse.
 robot.setMouseDelay(0);
-
-var twoPI = Math.PI * 2.0;
-var screenSize = robot.getScreenSize();
-var height = screenSize.height;
-var width = screenSize.width;
 var initpos;
 var moveX;
 var moveY;
@@ -31,7 +26,6 @@ exports.sendevents =  function () {
       console.log("X is at " + moveX +  ", y is at " + moveY);
       console.log("X is at " + moveX +  ", y is at " + moveY);
     });
-
     socket.on('hold', function(response) {
       robot.mouseToggle('down');
       console.log("Tap hold.");
@@ -41,6 +35,21 @@ exports.sendevents =  function () {
     socket.on('tap', function(response) {
       robot.mouseClick('left');
       console.log("Touched.");
+    });
+    socket.on('swipeup', function(response) {
+      robot.scrollMouse(50, "up");
+      console.log('Swiping up...');
+    });
+    socket.on('swipedown', function(response) {
+      console.log('Swiping down...');
+    });
+    socket.on('keypress', function(response) {
+      response.key = String.fromCharCode(response.key);
+      console.log("Got key: " + response.key);
+      // robot.keyTap(response.key);
+      // if (error) {
+      //   console.log("Error on keypress: " + error);
+      // }
     });
   });
   //
