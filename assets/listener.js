@@ -36,20 +36,31 @@ exports.sendevents =  function () {
       robot.mouseClick('left');
       console.log("Touched.");
     });
-    socket.on('swipeup', function(response) {
-      robot.scrollMouse(50, "up");
-      console.log('Swiping up...');
-    });
-    socket.on('swipedown', function(response) {
-      console.log('Swiping down...');
-    });
+
+
+    // These events proved to be useless
+    // socket.on('swipeup', function(response) {
+    //   robot.scrollMouse(50, "up");
+    //   console.log('Swiping up...');
+    // });
+    // socket.on('swipedown', function(response) {
+    //   console.log('Swiping down...');
+    // });
+
+
     socket.on('keypress', function(response) {
-      response.key = String.fromCharCode(response.key);
+      var presser = String.fromCharCode(response.key);
       console.log("Got key: " + response.key);
-      // robot.keyTap(response.key);
-      // if (error) {
-      //   console.log("Error on keypress: " + error);
-      // }
+      if (response.key === 8)
+        robot.keyTap("backspace");
+
+      if (response.key === 13)
+      { console.log("GOT ENTER");
+        robot.keyTap("enter");
+      }
+
+
+      robot.typeString(presser);
     });
   });
   //
