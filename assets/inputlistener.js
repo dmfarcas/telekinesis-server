@@ -42,7 +42,10 @@ exports.listen =  function (io) {
       robot.scrollMouse(1, "down");
       console.log('Swiping down...');
     });
-
+    socket.on('rightclick', function(response) {
+      robot.mouseClick("right");
+      console.log('Right click.');
+    });
 
     socket.on('keypress', function(response) {
       var presser = String.fromCharCode(response.key);
