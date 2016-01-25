@@ -2,6 +2,13 @@
 
 > My incredible app
 
+## To do
+
+* Create basic UI
+* Read contacts from phone
+* Send sms thing.
+
+
 
 ## Dev
 
