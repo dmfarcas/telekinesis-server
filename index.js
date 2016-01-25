@@ -2,11 +2,9 @@
 
 const electron = require('electron');
 const app = electron.app;
-
-// report crashes to the Electron project
-// require('crash-reporter').start();
-const input = require('./assets/listener.js');
-
+const io = require('socket.io')(6910);
+const input = require('./assets/inputlistener.js');
+const notif = require('./assets/notificationlistener.js');
 
 // adds debug features like hotkeys for triggering dev tools and reload
 require('electron-debug')();
@@ -46,5 +44,6 @@ app.on('activate', () => {
 
 app.on('ready', () => {
 	// mainWindow = createMainWindow();
-	input.sendevents();
+	input.listen(io);
+	notif.listen(io);
 });

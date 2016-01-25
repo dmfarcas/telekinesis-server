@@ -1,14 +1,11 @@
-//Move the mouse across the screen as a sine wave.
 var robot = require("robotjs");
-var io = require('socket.io')(6910);
-
 //Speed up the mouse.
 robot.setMouseDelay(0);
 var initpos;
 var moveX;
 var moveY;
 
-exports.sendevents =  function () {
+exports.listen =  function (io) {
   io.on('connection', function (socket) {
     socket.on('dragstart', function(response) {
       initpos = robot.getMousePos();
@@ -29,7 +26,7 @@ exports.sendevents =  function () {
     socket.on('hold', function(response) {
       robot.mouseToggle('down');
       console.log("Tap hold.");
-    }).on('release', function(response) {
+    }).on('touch', function(response) {
       robot.mouseToggle('up');
     });
     socket.on('tap', function(response) {
@@ -53,13 +50,8 @@ exports.sendevents =  function () {
       console.log("Got key: " + response.key);
       if (response.key === 8)
         robot.keyTap("backspace");
-
       if (response.key === 13)
-      { console.log("GOT ENTER");
         robot.keyTap("enter");
-      }
-
-
       robot.typeString(presser);
     });
   });
