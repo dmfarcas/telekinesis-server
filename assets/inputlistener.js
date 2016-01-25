@@ -34,15 +34,14 @@ exports.listen =  function (io) {
       console.log("Touched.");
     });
 
-
-    // These events proved to be useless
-    // socket.on('swipeup', function(response) {
-    //   robot.scrollMouse(50, "up");
-    //   console.log('Swiping up...');
-    // });
-    // socket.on('swipedown', function(response) {
-    //   console.log('Swiping down...');
-    // });
+    socket.on('scrollup', function(response) {
+      robot.scrollMouse(1, "up");
+      console.log('Swiping up...');
+    });
+    socket.on('scrolldown', function(response) {
+      robot.scrollMouse(1, "down");
+      console.log('Swiping down...');
+    });
 
 
     socket.on('keypress', function(response) {
