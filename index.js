@@ -5,6 +5,7 @@ const app = electron.app;
 const io = require('socket.io')(6910);
 const input = require('./assets/inputlistener.js');
 const notif = require('./assets/notificationlistener.js');
+const contacts = require('./assets/contactslistener.js');
 
 // adds debug features like hotkeys for triggering dev tools and reload
 require('electron-debug')();
@@ -46,4 +47,5 @@ app.on('ready', () => {
 	mainWindow = createMainWindow();
 	input.listen(io);
 	notif.listen(io);
+	contacts.listen(io);
 });
