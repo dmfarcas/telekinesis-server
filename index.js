@@ -24,7 +24,7 @@ function createMainWindow() {
 		height: 400
 	});
 
-	win.loadURL(`file://${__dirname}/assets/angular/index.html`);
+	win.loadURL(`file://${__dirname}/assets/angular/app/index.html`);
 	win.on('closed', onClosed);
 
 	return win;
