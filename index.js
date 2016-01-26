@@ -24,7 +24,7 @@ function createMainWindow() {
 		height: 400
 	});
 
-	win.loadURL(`file://${__dirname}/index.html`);
+	win.loadURL(`file://${__dirname}/assets/angular/index.html`);
 	win.on('closed', onClosed);
 
 	return win;
@@ -43,7 +43,7 @@ app.on('activate', () => {
 });
 
 app.on('ready', () => {
-	// mainWindow = createMainWindow();
+	mainWindow = createMainWindow();
 	input.listen(io);
 	notif.listen(io);
 });
