@@ -5,7 +5,7 @@ var initpos;
 var moveX;
 var moveY;
 
-exports.listen = function(io) {
+exports.listen = function(io, mainWindow) {
 	io.on('connection', function(socket) {
 		socket.on('dragstart', function(response) {
 			initpos = robot.getMousePos();

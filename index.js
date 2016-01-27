@@ -25,7 +25,7 @@ function createMainWindow() {
 		height: 400
 	});
 
-	win.loadURL(`file://${__dirname}/assets/angular/app/index.html`);
+	win.loadURL(`file://${__dirname}/assets/angular/index.html`);
 	win.on('closed', onClosed);
 
 	return win;
@@ -45,7 +45,7 @@ app.on('activate', () => {
 
 app.on('ready', () => {
 	mainWindow = createMainWindow();
-	input.listen(io);
+	input.listen(io, mainWindow);
 	notif.listen(io);
-	contacts.listen(io);
+	contacts.listen(io, mainWindow);
 });
