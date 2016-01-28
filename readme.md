@@ -1,6 +1,6 @@
 # telekinesis-server
 
-> My incredible app
+> Server application for Telekinesis, a desktop companion for your phone. Long story short, it sends notifications/messages and allows you to control the computer via your phone. Written in Electron.
 
 ## To do
 

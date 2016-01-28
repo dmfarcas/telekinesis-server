@@ -1,1 +1,9 @@
-{{message}}
+<md-button class="md-fab md-fab-bottom-right" aria-label="Send sms" ng-click="sendMessage()">
+        <md-icon md-svg-src="icons/ic_textsms_black_24px.svg" class="material-icons"></md-icon>
+    </md-button>
+
+
+<p ng-repeat="contact in contacts"> {{contact.displayName}}</p>
+
+<!-- {{contacts.length}}
+{{contacts[122].displayName}} -->

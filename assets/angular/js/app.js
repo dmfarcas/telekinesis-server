@@ -1,6 +1,13 @@
 'use strict';
 
 angular.module('telekinesisServer', ['ngMaterial', 'ngRoute', 'telekinesisServer.controllers'])
+.config(function($mdThemingProvider) {
+  $mdThemingProvider.theme('default')
+    .primaryPalette('blue')
+    .accentPalette('orange');
+})
+
+
 
 .config(['$routeProvider',
   function($routeProvider) {

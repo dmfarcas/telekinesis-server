@@ -3,6 +3,8 @@
 const electron = require('electron');
 const app = electron.app;
 const io = require('socket.io')(6910);
+
+// import modules
 const input = require('./assets/inputlistener.js');
 const notif = require('./assets/notificationlistener.js');
 const contacts = require('./assets/contactslistener.js');

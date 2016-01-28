@@ -1,4 +1,5 @@
-'use strict';
+"use strict";
+
 let contact = [];
 
 exports.listen = function(io, mainWindow) {

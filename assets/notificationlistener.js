@@ -1,5 +1,8 @@
-var notifier = require('node-notifier');
-var path = require('path');
+"use strict";
+
+
+const notifier = require('node-notifier');
+const path = require('path');
 exports.listen = function(io) {
 	io.on('connection', function(socket) {
 		socket.on('notification', function(response) {

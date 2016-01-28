@@ -1,11 +1,14 @@
-var robot = require("robotjs");
+"use strict";
+
+const robot = require("robotjs");
+
 //Speed up the mouse.
 robot.setMouseDelay(0);
-var initpos;
-var moveX;
-var moveY;
+let initpos;
+let moveX;
+let moveY;
 
-exports.listen = function(io, mainWindow) {
+exports.listen = function(io) {
 	io.on('connection', function(socket) {
 		socket.on('dragstart', function(response) {
 			initpos = robot.getMousePos();
