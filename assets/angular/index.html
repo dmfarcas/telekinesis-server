@@ -16,13 +16,40 @@
     <script src="js/controllers.js" charset="utf-8"></script>
   </head>
   <body ng-app="telekinesisServer" ng-cloak>
-    <md-toolbar >
+
+
+    <div ng-controller="navCtrl">
+      <div layout="column">
+        <md-sidenav class="md-sidenav-left" layout="column" md-component-id="left" md-is-locked-open="false">
+          <md-toolbar class="md-theme-indigo" layout="row">
+            <h1 class="md-toolbar-tools">Navigation</h1>
+            <span flex></span>
+            <md-button class="md-icon-button" ng-click="closeFilter('left')" aria-label="Close">
+              <i class="material-icons">x</i>
+            </md-button>
+          </md-toolbar>
+
+          <md-content layout-padding flex>
+            <md-list-item ng-repeat="item in items">
+              <md-button flex> {{item.name}}</md-button>
+            </md-list-item>
+            <md-divider></md-divider>
+          </md-content>
+        </md-sidenav>
+</div>
+
+
+    <md-toolbar style="position: fixed;" >
      <div class="md-toolbar-tools">
-       <h2>
-          <span>Telekinesis</span>
-        </h2>
+       <md-button class="md-icon-button md-accent" aria-label="Menu" ng-click="toggleFilter('left')">
+        <md-icon md-svg-icon="icons/menuicon.svg"></md-icon>
+      </md-button>
+        <h1>Telekinesis</h1>
       </div>
   </md-toolbar>
+  <md-content layout-padding>
     <ng-view></ng-view>
+  </md-content>
   </body>
+</div>
 </html>

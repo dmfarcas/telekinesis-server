@@ -1,7 +1,6 @@
-<md-content layout-padding>
+<section>
 <md-list>
-    <md-subheader class="md-no-sticky">Contact list</md-subheader>
-     <md-list-item class="md-2-line"  ng-click="sendMessageForm($event)"  ng-repeat="contact in contacts | orderBy:'displayName'">
+     <md-list-item class="md-2-line"  ng-click="sendMessageForm($event); getName(contact.displayName);"  ng-repeat="contact in contacts | orderBy:'displayName'">
        <img src="icons/contactphoto.jpg" class="md-avatar" />
        <div class="md-list-item-text" layout="column">
        <h3>{{ contact.displayName }}</h3>
@@ -9,7 +8,7 @@
      </div>
      </md-list-item>
 </md-list>
-</md-content>
+</section>
 <!-- TODO <md-button class="md-fab md-fab-bottom-right md-direction" md-direction="right" aria-label="Send sms" ng-click="sendMessageForm(name, message)">
         <md-icon md-svg-src="icons/ic_textsms_black_24px.svg" class="material-icons"></md-icon>
     </md-button> TODO-->

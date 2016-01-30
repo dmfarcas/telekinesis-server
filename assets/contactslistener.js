@@ -1,6 +1,10 @@
 "use strict";
 const ipcMain = require('electron').ipcMain;
 
+
+// TODO this data needs to be persistent.
+// Maybe refresh only when the client sends information
+// Connection detection should be handled somehow... 
 let contact = [];
 
 exports.listen = function(io, mainWindow) {

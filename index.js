@@ -8,6 +8,8 @@ const io = require('socket.io')(6910);
 const input = require('./assets/inputlistener.js');
 const notif = require('./assets/notificationlistener.js');
 const contacts = require('./assets/contactslistener.js');
+const pSleep = require('./assets/preventsleep.js');
+
 
 // adds debug features like hotkeys for triggering dev tools and reload
 require('electron-debug')();
@@ -50,4 +52,6 @@ app.on('ready', () => {
 	input.listen(io, mainWindow);
 	notif.listen(io);
 	contacts.listen(io, mainWindow);
+	pSleep.listen(io);
+
 });

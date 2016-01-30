@@ -2,17 +2,17 @@
   <form>
     <md-toolbar>
       <div class="md-toolbar-tools">
-        <h2>Send Message to {{ clickedname }}</h2>
+        <h2>Send Message</h2>
         <span flex></span>
       </div>
     </md-toolbar>
-    <!-- <p ng-repeat="items in ctrl.items">{{items.displayName}}</p>TODO -->
+        <!-- <p ng-repeat="items in ctrl.items">{{items.displayName}}</p>TODO: Search with Chips thing -->
     <md-dialog-content>
       <div class="md-dialog-content">
         <div layout-gt-sm="row">
          <md-input-container class="md-block" flex-gt-sm>
            <label>Name</label>
-           <input ng-model="name"> <!--TODO-->
+           <input ng-model="currentName"> <!--TODO-->
          </md-input-container>
        </div>
        <md-input-container class="md-block">
@@ -26,7 +26,7 @@
       <md-button ng-click="cancel()">
        Cancel
       </md-button>
-      <md-button ng-click="send(name, message)" style="margin-right:20px;">
+      <md-button ng-click="send(currentName, message)" style="margin-right:20px;">
         Send
       </md-button>
     </md-dialog-actions>
