@@ -1,4 +1,5 @@
 <section>
+
 <md-list>
      <md-list-item class="md-2-line"  ng-click="sendMessageForm($event); getName(contact.displayName);"  ng-repeat="contact in contacts | orderBy:'displayName' | filter:searchText.displayName ||  searchText.number.value">
        <img src="icons/contactphoto.jpg" class="md-avatar" />

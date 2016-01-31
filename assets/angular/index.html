@@ -38,10 +38,9 @@
 			</md-list>
 		</md-sidenav>
 
-
-
+    <!-- TITLEBAR -->
 		<md-content flex ng-controller="titleCtrl" class="md-scroll-shrink	">
-			<md-toolbar  >
+			<md-toolbar  md-scroll-shrink>
         <div class="md-toolbar-tools">
 				<md-button class="md-icon-button" aria-label="Menu" hide-gt-sm ng-click="toggleFilter( 'left') " >
 					<md-icon  md-svg-icon="icons/menuicon.svg "></md-icon>
@@ -51,27 +50,19 @@
       </div>
 
 			</md-toolbar>
-      <md-subheader class="md-whiteframe-glow-z5">
-        <!-- <div layout="column"> -->
-        <!-- <md-input-container>
-    <label>
-      <md-icon md-svg-icon="icons/ic_search_black_24px.svg"></md-icon>
-</label>
-    <input ng-model="searchText.displayName">
-    <span flex> </span>
-    <md-icon md-svg-icon="icons/ic_close_black_24px.svg"></md-icon>
-  </md-input-container> -->
-  <!-- <span></span> -->
-  <md-input-container class="md-icon-float md-icon-right md-block">
-      <label>Search by name or phone number</label>
-      <md-icon md-svg-icon="icons/ic_search_black_24px.svg"></md-icon>
-      <input ng-model="searchText.displayName">
-      <md-icon md-svg-src="icons/ic_close_black_24px.svg" ng-show="searchText" ng-click="clearText()"></md-icon>
-    </md-input-container>
-<!-- </div> -->
-</md-subheader>
+			<!-- SUBHEADER -->
+		    <md-subheader class="md-whiteframe-glow-z5" >
+		        <div layout="row">
+		  <!-- SEARCH FUNCTION -->
+		    <md-icon md-svg-icon="icons/ic_search_black_24px.svg"></md-icon>
+		    <input ng-model="searchText.displayName" placeholder="Search by name or phone number" flex>
+		    <md-icon md-svg-src="icons/ic_close_black_24px.svg" ng-show="searchText" ng-click="clearText()"></md-icon>
+		</div>
+
+		</md-subheader>
 
 			<ng-view></ng-view>
+
 		</md-content>
 </body>
 </div>
