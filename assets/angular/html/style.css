@@ -1,0 +1,26 @@
+.nav-header {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 0 16px;
+  margin: 0 auto;
+}
+
+
+md-list-item > button {
+  width:100%;
+  text-align:left !important;
+  height:50px;;
+}
+
+
+.title {
+  /*text-align: center;*/
+  /*display: flex;*/
+  color: white;
+  /*flex-direction: column;*/
+  /*align-items: center;*/
+  /*padding: 0 0 16px;*/
+  /*margin: 0 auto;*/
+}

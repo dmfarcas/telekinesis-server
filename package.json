@@ -1,8 +1,8 @@
 {
   "name": "telekinesis-server",
   "productName": "TelekinesisServer",
-  "version": "0.0.0",
-  "description": "My incredible app",
+  "version": "0.0.1",
+  "description": "Desktop companion Server",
   "license": "MIT",
   "repository": "dmfarcas/telekinesis-server",
   "author": {

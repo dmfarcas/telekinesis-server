@@ -4,9 +4,9 @@ angular.module('telekinesisServer.controllers', [])
 
 .controller('navCtrl', ($scope, $mdSidenav) => {
   $scope.items = [
-    { name: 'Home', link: '/notifications' },
-    { name: 'Contacts', link: '/contacts' },
-    { name: 'Settings',link: 'Settings' },
+    { name: 'Home', link: 'notifications', icon: 'ic_home_black_24px.svg' },
+    { name: 'Contacts', link: 'contacts', icon: 'ic_contacts_black_24px.svg' },
+    { name: 'Settings', link: 'settings', icon: 'ic_settings_black_24px.svg' },
   ];
 
  $scope.toggleFilter = function(sideId) {
@@ -31,8 +31,15 @@ $scope.closeFilter = function(sideId) {
 	$scope.message = 'This is a test';
 })
 
+.controller('titleCtrl', ($scope, Page) => {
+  $scope.clearText = function() {
+    $scope.searchText = "";
+  };
+  $scope.Page = Page;
+})
 
-.controller('contactsCtrl', ($scope, $timeout, $mdDialog) => {
+.controller('contactsCtrl', ($scope, $timeout, $mdDialog, Page) => {
+  Page.setTitle('Contacts');
 	const ipcRender = require("electron").ipcRenderer;
 
 	//create an initialized value and check if 'contactsinit' has been run before
@@ -44,12 +51,16 @@ $scope.closeFilter = function(sideId) {
 	ipcRender.send('gimmecontacts');
 
 	ipcRender.on('contactsinit', (event, contact) => {
-		$timeout(function() {
-			for (let i = 0; i < contact[0].length; i++) {
-				$scope.contacts[i] = contact[0][i];
-			}
-		}, 0);
+    if (contact[0]) {
+  		$timeout(function() {
+  			for (let i = 0; i < contact[0].length; i++) {
+  				$scope.contacts[i] = contact[0][i];
+  			}
+  		}, 0);
+  }
 	});
+
+
 	$scope.$watch('contacts', (newValue, oldValue) => {
 		console.log("Changed" + newValue + " " + oldValue);
 	});
@@ -90,6 +101,4 @@ $scope.closeFilter = function(sideId) {
 			$mdDialog.hide(message);
 		};
 	}
-
-
 });

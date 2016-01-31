@@ -1,9 +1,9 @@
 "use strict";
 const powerSaveBlocker = require('electron').powerSaveBlocker;
-
+let sleepBlock;
 
 exports.listen = function(io) {
-  let sleepBlock;
+
   io.on('connection', function(socket) {
     socket.on('psleep', function(response) {
       if (response.keep) {

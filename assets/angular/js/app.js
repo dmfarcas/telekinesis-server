@@ -3,8 +3,15 @@
 angular.module('telekinesisServer', ['ngMaterial', 'ngRoute', 'telekinesisServer.controllers'])
 .config(function($mdThemingProvider) {
   $mdThemingProvider.theme('default')
-    .primaryPalette('blue')
-    .accentPalette('orange');
+    .primaryPalette('blue-grey');
+})
+
+.factory('Page', function(){
+  var title = 'default';
+  return {
+    title: function() { return title; },
+    setTitle: function(newTitle) { title = newTitle; }
+  };
 })
 
 

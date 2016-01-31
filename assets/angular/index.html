@@ -1,55 +1,79 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <title>
-      Telekinesis
-    </title>
-    <link rel="stylesheet" href="html/style.css" media="screen" title="no title" charset="utf-8">
-    <link rel="stylesheet" href="../../node_modules/angular-material/angular-material.css" media="screen" title="no title" charset="utf-8">
-    <script src="../../node_modules/angular/angular.js" charset="utf-8"></script>
-    <script src="../../node_modules/angular-animate/angular-animate.js" charset="utf-8"></script>
-    <script src="../../node_modules/angular-aria/angular-aria.js" charset="utf-8"></script>
-    <script src="../../node_modules/angular-material/angular-material.js" charset="utf-8"></script>
-    <script src="../../node_modules/angular-route/angular-route.js" charset="utf-8"></script>
-    <script src="js/app.js" charset="utf-8"></script>
-    <script src="js/controllers.js" charset="utf-8"></script>
-  </head>
-  <body ng-app="telekinesisServer" ng-cloak>
+
+<head>
+	<meta charset="utf-8">
+	<title>
+		Telekinesis
+	</title>
+	<link rel="stylesheet" href="html/style.css" media="screen" title="no title" charset="utf-8">
+	<link rel="stylesheet" href="../../node_modules/angular-material/angular-material.css" media="screen" title="no title" charset="utf-8">
+	<script src="../../node_modules/angular/angular.js" charset="utf-8"></script>
+	<script src="../../node_modules/angular-animate/angular-animate.js" charset="utf-8"></script>
+	<script src="../../node_modules/angular-aria/angular-aria.js" charset="utf-8"></script>
+	<script src="../../node_modules/angular-material/angular-material.js" charset="utf-8"></script>
+	<script src="../../node_modules/angular-route/angular-route.js" charset="utf-8"></script>
+	<script src="js/app.js" charset="utf-8"></script>
+	<script src="js/controllers.js" charset="utf-8"></script>
+</head>
+
+<body ng-app="telekinesisServer" ng-cloak>
+	<div ng-controller="navCtrl" layout="row" layout-fill>
+		<md-sidenav class=" site-sidenav md-sidenav-left md-whiteframe-2dp" md-component-id="left " md-is-locked-open="$mdMedia( 'gt-sm') ">
+			<md-toolbar class="md-tall md-hue-2 blue md-whiteframe-5dp">
+				<header class="nav-header ">
+					<img src="icons/ic_mood_white_48px.svg " alt=" " />
+					<h1 class="md-display-1   ">Telekinesis</h1>
+				</header>
+			</md-toolbar>
+
+			<md-list>
+				<md-list-item ng-repeat="it in items ">
+
+					<md-button>
+						<md-icon md-svg-icon="icons/{{it.icon}} "></md-icon>
+						{{it.name}}
+					</md-button>
+				</md-list-item>
+			</md-list>
+		</md-sidenav>
 
 
-    <div ng-controller="navCtrl">
-      <div layout="column">
-        <md-sidenav class="md-sidenav-left" layout="column" md-component-id="left" md-is-locked-open="false">
-          <md-toolbar class="md-theme-indigo" layout="row">
-            <h1 class="md-toolbar-tools">Navigation</h1>
-            <span flex></span>
-            <md-button class="md-icon-button" ng-click="closeFilter('left')" aria-label="Close">
-              <i class="material-icons">x</i>
-            </md-button>
-          </md-toolbar>
 
-          <md-content layout-padding flex>
-            <md-list-item ng-repeat="item in items">
-              <md-button flex> {{item.name}}</md-button>
-            </md-list-item>
-            <md-divider></md-divider>
-          </md-content>
-        </md-sidenav>
-</div>
-
-
-    <md-toolbar style="position: fixed;" >
-     <div class="md-toolbar-tools">
-       <md-button class="md-icon-button md-accent" aria-label="Menu" ng-click="toggleFilter('left')">
-        <md-icon md-svg-icon="icons/menuicon.svg"></md-icon>
-      </md-button>
-        <h1>Telekinesis</h1>
+		<md-content flex ng-controller="titleCtrl" class="md-scroll-shrink	">
+			<md-toolbar  >
+        <div class="md-toolbar-tools">
+				<md-button class="md-icon-button" aria-label="Menu" hide-gt-sm ng-click="toggleFilter( 'left') " >
+					<md-icon  md-svg-icon="icons/menuicon.svg "></md-icon>
+				</md-button>
+				<h2><span class="md-title">{{Page.title()}}</span></h2>
+				<!-- <span flex></span> -->
       </div>
-  </md-toolbar>
-  <md-content layout-padding>
-    <ng-view></ng-view>
-  </md-content>
-  </body>
+
+			</md-toolbar>
+      <md-subheader class="md-whiteframe-glow-z5">
+        <!-- <div layout="column"> -->
+        <!-- <md-input-container>
+    <label>
+      <md-icon md-svg-icon="icons/ic_search_black_24px.svg"></md-icon>
+</label>
+    <input ng-model="searchText.displayName">
+    <span flex> </span>
+    <md-icon md-svg-icon="icons/ic_close_black_24px.svg"></md-icon>
+  </md-input-container> -->
+  <!-- <span></span> -->
+  <md-input-container class="md-icon-float md-icon-right md-block">
+      <label>Search by name or phone number</label>
+      <md-icon md-svg-icon="icons/ic_search_black_24px.svg"></md-icon>
+      <input ng-model="searchText.displayName">
+      <md-icon md-svg-src="icons/ic_close_black_24px.svg" ng-show="searchText" ng-click="clearText()"></md-icon>
+    </md-input-container>
+<!-- </div> -->
+</md-subheader>
+
+			<ng-view></ng-view>
+		</md-content>
+</body>
 </div>
+
 </html>
