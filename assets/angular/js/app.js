@@ -7,7 +7,7 @@ angular.module('telekinesisServer', ['ngMaterial', 'ngRoute', 'telekinesisServer
 	})
 
 .factory('Page', function() {
-	var title = 'default';
+	let title = 'undefined';
 	return {
 		title: function() {
 			return title;
@@ -18,20 +18,55 @@ angular.module('telekinesisServer', ['ngMaterial', 'ngRoute', 'telekinesisServer
 	};
 })
 
+.factory('dataFactory', function($timeout) {
+	let data = {};
+	data.message = [];
+	data.contacts = [];
+	const ipcRender = require("electron").ipcRenderer;
 
+	//Request messages
+    ipcRender.send('gimmemessages');
+    ipcRender.on('messages', (event, message) => {
+        for (let i = 0; i < message[0].length; i++) {
+			data.message.push(message[0][i]);
+			}
+	});
+
+	//Request contacts
+	ipcRender.send('gimmecontacts');
+	ipcRender.on('contactsinit', (event, contact) => {
+  			for (let i = 0; i < contact[0].length; i++) {
+  				data.contacts.push(contact[0][i]);
+  			}
+	});
+
+	return data;
+})
 
 .config(['$routeProvider',
 	function($routeProvider) {
 		$routeProvider.
+
 		when('/notifications', {
 			templateUrl: 'html/notifications.html',
 			controller: 'notificationsCtrl'
+		}).
+
+        when('/settings', {
+			templateUrl: 'html/settings.html',
+			controller: 'settingsCtrl'
 		}).
 
 		when('/contacts', {
 			templateUrl: 'html/contacts.html',
 			controller: 'contactsCtrl'
 		}).
+
+		when('/messages', {
+			templateUrl: 'html/messages.html',
+			controller: 'messagesCtrl'
+		}).
+
 		otherwise({
 			redirectTo: '/contacts'
 		});

@@ -2,69 +2,63 @@
 angular.module('telekinesisServer.controllers', [])
 
 
-.controller('navCtrl', ($scope, $mdSidenav) => {
+.controller('navCtrl', ($scope, $mdSidenav, $location) => {
   $scope.items = [
     { name: 'Home', link: 'notifications', icon: 'ic_home_black_24px.svg' },
+    { name: 'Messages', link: 'messages', icon: 'ic_message_black_24px.svg' },
     { name: 'Contacts', link: 'contacts', icon: 'ic_contacts_black_24px.svg' },
     { name: 'Settings', link: 'settings', icon: 'ic_settings_black_24px.svg' },
   ];
 
- $scope.toggleFilter = function(sideId) {
-
-            $mdSidenav(sideId)
-              .toggle()
-              .then(function () {
-              });
-
+ $scope.toggleFilter = function() {
+    $mdSidenav('left')
+      .toggle()
+      .then(function () {
+      });
     };
 
+    $scope.changeView = function(link){
+        $scope.toggleFilter();
+        $location.path(link);
+    };
 
-$scope.closeFilter = function(sideId) {
-      $mdSidenav(sideId).close()
-        .then(function () {
-        });
+    $scope.closeFilter = function(sideId) {
+          $mdSidenav(sideId).close()
+            .then(function () {
+            });
     };
 })
 
 
-.controller('notificationsCtrl', ($scope) => {
+.controller('settingsCtrl', ($scope, Page) => {
+    Page.setTitle('Settings');
+    $scope.message = "This is the settings controller.";
+})
+
+
+.controller('notificationsCtrl', ($scope, Page) => {
+    Page.setTitle('Notifications');
 	$scope.message = 'This is a test';
 })
 
 .controller('titleCtrl', ($scope, Page) => {
-  $scope.clearText = function() {
-    $scope.searchText = "";
-  };
   $scope.Page = Page;
 })
 
-.controller('contactsCtrl', ($scope, $timeout, $mdDialog, Page) => {
-  Page.setTitle('Contacts');
+.controller('messagesCtrl', ($scope, Page, $timeout, dataFactory) => {
+    Page.setTitle('Messages');
+    $scope.message = dataFactory.message;
+})
+
+
+.controller('contactsCtrl', ($scope, $timeout, $mdDialog, Page, dataFactory) => {
+    Page.setTitle('Contacts');
 	const ipcRender = require("electron").ipcRenderer;
+    $scope.contacts = dataFactory.contacts;
 
-	//create an initialized value and check if 'contactsinit' has been run before
-	let initialized = false;
-	$scope.contacts = [];
-
-
-	// Ask for contacts via IPC, maybe they are already stored
-	ipcRender.send('gimmecontacts');
-
-	ipcRender.on('contactsinit', (event, contact) => {
-    if (contact[0]) {
-  		$timeout(function() {
-  			for (let i = 0; i < contact[0].length; i++) {
-  				$scope.contacts[i] = contact[0][i];
-  			}
-  		}, 0);
-  }
-	});
-
-
-	$scope.$watch('contacts', (newValue, oldValue) => {
-		console.log("Changed" + newValue + " " + oldValue);
-	});
-
+    $scope.clearText = function() {
+      $scope.searchText = "";
+    };
 
   //Send message form.
 	$scope.sendMessageForm = ($event) => {
@@ -78,12 +72,12 @@ $scope.closeFilter = function(sideId) {
 		});
 	};
 
-  // FIXME: this is a bad function but cannot wrap my head on a better solution right now
-  // Basically it needs to get the current selected name and send it to the scope.
-  $scope.currentName = '';
-  $scope.getName = (name) => {
-    $scope.currentName =  name;
-  };
+      // FIXME: this is a bad function but cannot wrap my head on a better solution right now
+      // Basically it needs to get the current selected name and send it to the scope.
+      $scope.currentName = '';
+      $scope.getName = (name) => {
+        $scope.currentName =  name;
+      };
 
 
 	function DialogController($scope, $mdDialog) {
@@ -101,4 +95,18 @@ $scope.closeFilter = function(sideId) {
 			$mdDialog.hide(message);
 		};
 	}
+})
+
+.directive('esccancel', function() {
+    return {
+        restrict: 'A',
+        link: function(scope, element, attrs, controller) {
+            element.on('keyup', function(e) {
+                if (e.keyCode === 27) {
+                    scope.searchText = "";
+                    scope.$apply();
+                }
+            });
+        }
+    };
 });

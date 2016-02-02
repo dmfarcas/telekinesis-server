@@ -7,6 +7,9 @@
   margin: 0 auto;
 }
 
+.nav-header > img {
+    height: 80px;
+}
 
 md-list-item > button {
   width:100%;
@@ -23,4 +26,17 @@ md-list-item > button {
   /*align-items: center;*/
   /*padding: 0 0 16px;*/
   /*margin: 0 auto;*/
+}
+
+md-input-container {
+padding-top: 0;
+padding-bottom: 0;
+margin: 0 auto;
+
+}
+
+
+
+#title {
+    background-image: url("../icons/background.png");
 }

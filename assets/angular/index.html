@@ -20,7 +20,7 @@
 <body ng-app="telekinesisServer" ng-cloak>
 	<div ng-controller="navCtrl" layout="row" layout-fill>
 		<md-sidenav class=" site-sidenav md-sidenav-left md-whiteframe-2dp" md-component-id="left " md-is-locked-open="$mdMedia( 'gt-sm') ">
-			<md-toolbar class="md-tall md-hue-2 blue md-whiteframe-5dp">
+			<md-toolbar id="title" class="md-tall md-hue-2 blue md-whiteframe-5dp">
 				<header class="nav-header ">
 					<img src="icons/ic_mood_white_48px.svg " alt=" " />
 					<h1 class="md-display-1   ">Telekinesis</h1>
@@ -30,7 +30,7 @@
 			<md-list>
 				<md-list-item ng-repeat="it in items ">
 
-					<md-button>
+					<md-button ng-click="changeView(it.link)">
 						<md-icon md-svg-icon="icons/{{it.icon}} "></md-icon>
 						{{it.name}}
 					</md-button>
@@ -38,28 +38,19 @@
 			</md-list>
 		</md-sidenav>
 
-    <!-- TITLEBAR -->
-		<md-content flex ng-controller="titleCtrl" class="md-scroll-shrink	">
-			<md-toolbar  md-scroll-shrink>
-        <div class="md-toolbar-tools">
-				<md-button class="md-icon-button" aria-label="Menu" hide-gt-sm ng-click="toggleFilter( 'left') " >
-					<md-icon  md-svg-icon="icons/menuicon.svg "></md-icon>
-				</md-button>
-				<h2><span class="md-title">{{Page.title()}}</span></h2>
-				<!-- <span flex></span> -->
-      </div>
+		<!-- TITLEBAR -->
+		<md-content flex ng-controller="titleCtrl">
+			<md-toolbar md-scroll-shrink>
+				<div class="md-toolbar-tools">
+					<md-button class="md-icon-button" aria-label="Menu" hide-gt-sm ng-click="toggleFilter( 'left') ">
+						<md-icon md-svg-icon="icons/menuicon.svg "></md-icon>
+					</md-button>
+					<h2><span class="md-title">{{Page.title()}}</span></h2>
+					<!-- <span flex></span> -->
+				</div>
 
 			</md-toolbar>
-			<!-- SUBHEADER -->
-		    <md-subheader class="md-whiteframe-glow-z5" >
-		        <div layout="row">
-		  <!-- SEARCH FUNCTION -->
-		    <md-icon md-svg-icon="icons/ic_search_black_24px.svg"></md-icon>
-		    <input ng-model="searchText.displayName" placeholder="Search by name or phone number" flex>
-		    <md-icon md-svg-src="icons/ic_close_black_24px.svg" ng-show="searchText" ng-click="clearText()"></md-icon>
-		</div>
 
-		</md-subheader>
 
 			<ng-view></ng-view>
 
