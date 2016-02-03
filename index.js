@@ -4,6 +4,10 @@ const electron = require('electron');
 const app = electron.app;
 const io = require('socket.io')(6910);
 
+// node goes crazy if this is not here, because there are >11 EventEmitters
+// require('events').EventEmitter.prototype._maxListeners = 100;
+
+
 // import modules
 const input = require('./assets/inputlistener.js');
 const notif = require('./assets/notificationlistener.js');

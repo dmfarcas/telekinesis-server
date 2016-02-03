@@ -1,3 +1,8 @@
-<ul>
-<li ng-repeat="messages in message">{{messages.address}}: {{messages.body}}</li>
-</ul>
+<md-list-item class="md-2-line" ng-repeat="message in messages">
+    <img src="icons/contactphoto.jpg" class="md-avatar" />
+       <div class="md-list-item-text" layout="column">
+         <h3>{{ message.address }}</h3>
+         <h4>{{ message.body }}</h4>
+         <p>{{ message.date }}</p>
+       </div>
+     </md-list-item>

@@ -47,14 +47,21 @@ angular.module('telekinesisServer.controllers', [])
 
 .controller('messagesCtrl', ($scope, Page, $timeout, dataFactory) => {
     Page.setTitle('Messages');
-    $scope.message = dataFactory.message;
+    $scope.messages   = dataFactory.message;
 })
 
 
 .controller('contactsCtrl', ($scope, $timeout, $mdDialog, Page, dataFactory) => {
     Page.setTitle('Contacts');
-	const ipcRender = require("electron").ipcRenderer;
-    $scope.contacts = dataFactory.contacts;
+    $scope.contacts = [];
+    $scope.promise = dataFactory;
+    $scope.promise.then(function(solved) {
+        console.log("Contacts loaded.");
+        $scope.contacts = solved;
+    }).then(function(err) {
+        return err;
+    });
+
 
     $scope.clearText = function() {
       $scope.searchText = "";

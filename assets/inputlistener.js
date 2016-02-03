@@ -13,24 +13,27 @@ exports.listen = function(io) {
 		socket.on('dragstart', function(response) {
 			initpos = robot.getMousePos();
 			console.log(">>DRAG START<<<");
+			console.log(initpos.x, " + ", initpos.y);
 		});
+
 		socket.on('dragend', function() {
 			console.log(">>>DRAG END<<<");
 		});
 
 		socket.on('dragging', function(response) {
-			console.log(initpos.x, " + ", initpos.y);
 			moveX = Math.trunc(initpos.x) + Math.trunc(response.x) * 2;
 			moveY = Math.trunc(initpos.y) + Math.trunc(response.y) * 2;
 			robot.moveMouse(moveX, moveY);
 			console.log("X is at:" + moveX + " | Y is at: " + moveY);
 		});
+
 		socket.on('hold', function(response) {
 			robot.mouseToggle('down');
 			console.log("Tap hold.");
 		}).on('touch', function(response) {
 			robot.mouseToggle('up');
 		});
+
 		socket.on('tap', function(response) {
 			robot.mouseClick('left');
 			console.log("Touched.");

@@ -18,29 +18,37 @@ angular.module('telekinesisServer', ['ngMaterial', 'ngRoute', 'telekinesisServer
 	};
 })
 
-.factory('dataFactory', function($timeout) {
+.factory('dataFactory', function($timeout, $q) {
+	const ipcRender = require("electron").ipcRenderer;
 	let data = {};
+	let q = $q.defer();
 	data.message = [];
 	data.contacts = [];
-	const ipcRender = require("electron").ipcRenderer;
 
 	//Request messages
     ipcRender.send('gimmemessages');
     ipcRender.on('messages', (event, message) => {
+		if (message[0]) {
         for (let i = 0; i < message[0].length; i++) {
-			data.message.push(message[0][i]);
+			console.log(message[0][i]);
 			}
+		}
 	});
 
 	//Request contacts
 	ipcRender.send('gimmecontacts');
 	ipcRender.on('contactsinit', (event, contact) => {
-  			for (let i = 0; i < contact[0].length; i++) {
-  				data.contacts.push(contact[0][i]);
-  			}
+		if (contact) {
+			q.resolve(contact);
+		} else {
+			q.reject('Cannot retrieve contacts');
+		}
+		// console.log("CONTACTSINIT");
+		// contact.forEach((ret) => {
+		// 	console.log(ret);
+		// });
 	});
-
-	return data;
+	return q.promise;
 })
 
 .config(['$routeProvider',

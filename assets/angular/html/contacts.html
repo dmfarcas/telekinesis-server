@@ -9,10 +9,12 @@
             <input ng-model="searchText.displayName" placeholder="Search by name or phone number" flex esccancel>
             <md-icon md-svg-src="icons/ic_close_black_24px.svg" ng-show="searchText" ng-click="clearText()"></md-icon>
         </md-input-container>
-
         </div>
 
     </md-subheader>
+    <div layout="row" layout-sm="column" layout-align="space-around" ng-show="contacts.length === 0" class="ng-hide">
+  <md-progress-circular md-diameter="60" md-mode="indeterminate"></md-progress-circular>
+</div>
 <md-list>
      <md-list-item class="md-2-line"  ng-click="sendMessageForm($event); getName(contact.displayName);"  ng-repeat="contact in contacts | orderBy:'displayName' | filter:searchText.displayName ||  searchText.number.value">
        <img src="icons/contactphoto.jpg" class="md-avatar" />
