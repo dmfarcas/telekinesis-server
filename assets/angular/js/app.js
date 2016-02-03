@@ -26,14 +26,14 @@ angular.module('telekinesisServer', ['ngMaterial', 'ngRoute', 'telekinesisServer
 	data.contacts = [];
 
 	//Request messages
-    ipcRender.send('gimmemessages');
-    ipcRender.on('messages', (event, message) => {
-		if (message[0]) {
-        for (let i = 0; i < message[0].length; i++) {
-			console.log(message[0][i]);
-			}
-		}
-	});
+    // ipcRender.send('gimmemessages');
+    // ipcRender.on('messages', (event, message) => {
+	// 	if (message[0]) {
+    //     for (let i = 0; i < message[0].length; i++) {
+	// 		console.log(message[0][i]);
+	// 		}
+	// 	}
+	// });
 
 	//Request contacts
 	ipcRender.send('gimmecontacts');
