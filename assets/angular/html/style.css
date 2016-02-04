@@ -19,13 +19,7 @@ md-list-item > button {
 
 
 .title {
-  /*text-align: center;*/
-  /*display: flex;*/
   color: white;
-  /*flex-direction: column;*/
-  /*align-items: center;*/
-  /*padding: 0 0 16px;*/
-  /*margin: 0 auto;*/
 }
 
 md-input-container {
@@ -35,7 +29,15 @@ margin: 0 auto;
 
 }
 
+.sent {
+    color: white;
+    font-size: 20px;
+    background-color: yellow;
+}
 
+.received {
+    color: red;
+}
 
 #title {
     background-image: url("../icons/background.png");

@@ -45,16 +45,57 @@ angular.module('telekinesisServer.controllers', [])
   $scope.Page = Page;
 })
 
-.controller('messagesCtrl', ($scope, Page, $timeout, dataFactory) => {
+.controller('messagesCtrl', ($scope, Page, $timeout, contacts, messages, $location) => {
     Page.setTitle('Messages');
-    $scope.messages   = dataFactory.message;
+    $scope.messages = [];
+    $scope.mpromise  = messages;
+    $scope.mpromise.then(function(solved) {
+        $scope.messages = solved;
+    }).then(function(err) {
+        return err;
+    });
+
+    //FIXME: clunky syntax, but it works.
+    $scope.contacts = [];
+    $scope.cpromise  = contacts;
+    $scope.cpromise.then(function(solved) {
+        $scope.contacts = solved;
+    }).then(function(err) {
+        return err;
+    });
+    $scope.goToChat = function(section) {
+        // $scope.section = section;
+        $location.path("/messages/" + section);
+        console.log(section);
+    };
 })
 
+.controller('chatCtrl', ($scope, $routeParams, Page, contacts, messages) => {
+    let hash = $routeParams.thread_id;
+    // I'm pretty sure there's a better way to get rid of the ":" without substring.
+    Page.setTitle("Messages");
+    $scope.hash = hash;
+    $scope.messages = [];
+    $scope.mpromise  = messages;
+    $scope.mpromise.then(function(solved) {
+        $scope.messages = solved;
+    }).then(function(err) {
+        return err;
+    });
+    //FIXME: clunky syntax, but it works.
+    $scope.contacts = [];
+    $scope.cpromise  = contacts;
+    $scope.cpromise.then(function(solved) {
+        $scope.contacts = solved;
+    }).then(function(err) {
+        return err;
+    });
+})
 
-.controller('contactsCtrl', ($scope, $timeout, $mdDialog, Page, dataFactory) => {
+.controller('contactsCtrl', ($scope, $timeout, $mdDialog, Page, contacts) => {
     Page.setTitle('Contacts');
     $scope.contacts = [];
-    $scope.promise = dataFactory;
+    $scope.promise = contacts;
     $scope.promise.then(function(solved) {
         console.log("Contacts loaded.");
         $scope.contacts = solved;

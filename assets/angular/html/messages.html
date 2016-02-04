@@ -1,8 +1,13 @@
-<md-list-item class="md-2-line" ng-repeat="message in messages">
-    <img src="icons/contactphoto.jpg" class="md-avatar" />
+<div layout="row" layout-sm="column" layout-align="space-around" ng-show="messages.length === 0" class="ng-hide">
+<md-progress-circular md-diameter="60" md-mode="indeterminate"></md-progress-circular>
+</div>
+<md-list>
+<md-list-item class="md-3-line" ng-repeat="message in messages | unique: 'thread_id'" ng-click="goToChat(message.thread_id)"> <!-- TODO filter by thread:  | filter: {thread_id: 15} -->
+    <img src="icons/contactphoto.jpg" class="md-avatar">
        <div class="md-list-item-text" layout="column">
          <h3>{{ message.address }}</h3>
          <h4>{{ message.body }}</h4>
          <p>{{ message.date }}</p>
        </div>
      </md-list-item>
+</md-list>

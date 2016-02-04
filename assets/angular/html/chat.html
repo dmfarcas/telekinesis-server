@@ -1,0 +1,11 @@
+<md-list>
+<md-list-item class="md-2-line" ng-repeat="message in messages | filter: {thread_id: hash} | orderBy: 'date'" class="md-warn">
+        <img src="icons/contactphoto.jpg" class="md-avatar">
+       <div class="md-list-item-text" layout="column">
+           <p ng-if="message.type === 1">This person sent:</p>
+           <p ng-if="message.type === 2">You sent:</p>
+         <p>{{ message.body }}</p>
+         <p><small>{{ message.date }}</small></p>
+       </div>
+     </md-list-item>
+</md-list>

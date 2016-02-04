@@ -29,6 +29,7 @@
     "angular": "^1.4.9",
     "angular-animate": "^1.4.9",
     "angular-aria": "^1.4.9",
+    "angular-filter": "^0.5.8",
     "angular-material": "^1.0.2",
     "angular-route": "^1.4.9",
     "electron-debug": "^0.5.0",

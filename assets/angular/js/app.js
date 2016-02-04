@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('telekinesisServer', ['ngMaterial', 'ngRoute', 'telekinesisServer.controllers'])
+angular.module('telekinesisServer', ['ngMaterial', 'ngRoute', 'telekinesisServer.controllers', 'angular.filter'])
 	.config(function($mdThemingProvider) {
 		$mdThemingProvider.theme('default')
 			.primaryPalette('blue-grey');
@@ -18,22 +18,31 @@ angular.module('telekinesisServer', ['ngMaterial', 'ngRoute', 'telekinesisServer
 	};
 })
 
-.factory('dataFactory', function($timeout, $q) {
+.factory('messages', function($q) {
 	const ipcRender = require("electron").ipcRenderer;
-	let data = {};
-	let q = $q.defer();
-	data.message = [];
-	data.contacts = [];
 
 	//Request messages
-    // ipcRender.send('gimmemessages');
-    // ipcRender.on('messages', (event, message) => {
-	// 	if (message[0]) {
-    //     for (let i = 0; i < message[0].length; i++) {
-	// 		console.log(message[0][i]);
-	// 		}
-	// 	}
-	// });
+	ipcRender.send('gimmemessages');
+	let q = $q.defer();
+	let messages = [];
+	//TODO: chain promises, combine message data with contact data, return promise result.
+	ipcRender.on('messages', (event, message) => {
+		console.log("Received messages.");
+		if (message) {
+			q.resolve(message);
+		} else {
+			q.reject('Cannot retrieve messages');
+		}
+	});
+	return q.promise;
+})
+
+
+
+
+.factory('contacts', function($q) {
+	const ipcRender = require("electron").ipcRenderer;
+	let q = $q.defer();
 
 	//Request contacts
 	ipcRender.send('gimmecontacts');
@@ -74,6 +83,11 @@ angular.module('telekinesisServer', ['ngMaterial', 'ngRoute', 'telekinesisServer
 			templateUrl: 'html/messages.html',
 			controller: 'messagesCtrl'
 		}).
+
+		when('/messages/:thread_id', {
+        templateUrl: 'html/chat.html',
+        controller: 'chatCtrl'
+      }).
 
 		otherwise({
 			redirectTo: '/contacts'
