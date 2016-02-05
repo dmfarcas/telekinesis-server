@@ -4,10 +4,12 @@
 
 ## To do
 
-* Create basic UI
-* Read contacts from phone
+* ~~Create basic UI~~
+* ~~Read contacts from phone~~
 * Send sms thing.
-
+* File manager(SFTP or SCP?)
+* Gallery viewer
+* End to end encryption?
 
 
 ## Dev
