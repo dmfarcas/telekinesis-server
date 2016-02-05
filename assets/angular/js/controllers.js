@@ -3,19 +3,19 @@ angular.module('telekinesisServer.controllers', [])
 
 
 .controller('navCtrl', ($scope, $mdSidenav, $location) => {
-  $scope.items = [
-    { name: 'Home', link: 'notifications', icon: 'ic_home_black_24px.svg' },
-    { name: 'Messages', link: 'messages', icon: 'ic_message_black_24px.svg' },
-    { name: 'Contacts', link: 'contacts', icon: 'ic_contacts_black_24px.svg' },
-    { name: 'Settings', link: 'settings', icon: 'ic_settings_black_24px.svg' },
-  ];
+      $scope.items = [
+        { name: 'Home', link: 'notifications', icon: 'ic_home_black_24px.svg' },
+        { name: 'Messages', link: 'messages', icon: 'ic_message_black_24px.svg' },
+        { name: 'Contacts', link: 'contacts', icon: 'ic_contacts_black_24px.svg' },
+        { name: 'Settings', link: 'settings', icon: 'ic_settings_black_24px.svg' },
+      ];
 
- $scope.toggleFilter = function() {
-    $mdSidenav('left')
-      .toggle()
-      .then(function () {
-      });
-    };
+     $scope.toggleFilter = function() {
+        $mdSidenav('left')
+          .toggle()
+          .then(function () {
+          });
+        };
 
     $scope.changeView = function(link){
         $scope.toggleFilter();
@@ -41,8 +41,13 @@ angular.module('telekinesisServer.controllers', [])
 	$scope.message = 'This is a test';
 })
 
-.controller('titleCtrl', ($scope, Page) => {
+.controller('titleCtrl', ($scope, Page, $routeParams, $window) => {
   $scope.Page = Page;
+  let checkView = $routeParams.thread_id;
+  console.log(checkView);
+  $scope.goBack = function() {
+      $window.history.back();
+};
 })
 
 .controller('messagesCtrl', ($scope, Page, $timeout, contacts, messages, $location) => {

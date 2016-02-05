@@ -13,7 +13,6 @@ exports.listen = function(io) {
 		socket.on('dragstart', function(response) {
 			initpos = robot.getMousePos();
 			console.log(">>DRAG START<<<");
-			console.log(initpos.x, " + ", initpos.y);
 		});
 
 		socket.on('dragend', function() {
@@ -24,7 +23,7 @@ exports.listen = function(io) {
 			moveX = Math.trunc(initpos.x) + Math.trunc(response.x) * 2;
 			moveY = Math.trunc(initpos.y) + Math.trunc(response.y) * 2;
 			robot.moveMouse(moveX, moveY);
-			console.log("X is at:" + moveX + " | Y is at: " + moveY);
+			console.log("Received mouse coordinates: " + moveX + " " + moveY);
 		});
 
 		socket.on('hold', function(response) {
