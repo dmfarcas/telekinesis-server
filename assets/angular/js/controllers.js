@@ -44,9 +44,12 @@ angular.module('telekinesisServer.controllers', [])
 .controller('titleCtrl', ($scope, Page, $routeParams, $window) => {
   $scope.Page = Page;
   let checkView = $routeParams.thread_id;
-  console.log(checkView);
+  // $scope.$apply(function() {});
+  $scope.checkView = checkView;
   $scope.goBack = function() {
       $window.history.back();
+      console.log(checkView);
+
 };
 })
 

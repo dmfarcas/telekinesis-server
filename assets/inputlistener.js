@@ -7,7 +7,7 @@ robot.setMouseDelay(0);
 let initpos;
 let moveX;
 let moveY;
-
+let sensitivity = 1.5; // TODO: this thing should be in Settings
 exports.listen = function(io) {
 	io.on('connection', function(socket) {
 		socket.on('dragstart', function(response) {
@@ -20,8 +20,8 @@ exports.listen = function(io) {
 		});
 
 		socket.on('dragging', function(response) {
-			moveX = Math.trunc(initpos.x) + Math.trunc(response.x) * 2;
-			moveY = Math.trunc(initpos.y) + Math.trunc(response.y) * 2;
+			moveX = Math.trunc(initpos.x) + Math.trunc(response.x)  * sensitivity;
+			moveY = Math.trunc(initpos.y) + Math.trunc(response.y) *sensitivity;
 			robot.moveMouse(moveX, moveY);
 			console.log("Received mouse coordinates: " + moveX + " " + moveY);
 		});
