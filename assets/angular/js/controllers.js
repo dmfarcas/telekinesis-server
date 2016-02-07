@@ -91,6 +91,12 @@ angular.module('telekinesisServer.controllers', [])
 	}).then(function(err) {
 		return err;
 	});
+    $scope.sendMessage = function() {
+        $scope.messageInput = "";
+        console.log("Submit");
+    };
+
+
 })
 
 .controller('contactsCtrl', ($scope, $timeout, $mdDialog, Page, dataFactory) => {

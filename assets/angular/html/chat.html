@@ -3,12 +3,12 @@
 <md-list>
     <div layout="column">
 <md-list-item class="md-3-line" ng-repeat="message in messages | filter: {thread_id: hash}:true  | orderBy: 'date'" class="md-warn" >
-        <img src="icons/contactphoto.jpg" class="md-avatar">
+        <!-- <img src="icons/contactphoto.jpg" class="md-avatar"> -->
+        <md-icon ng-if="message.type === 1"md-svg-icon="icons/ic_call_received_black_18px.svg" class="md-avatar"></md-icon>
+        <md-icon ng-if="message.type === 2"md-svg-icon="icons/ic_call_made_black_18px.svg" class="md-avatar"></md-icon>
        <div class="md-list-item-text" layout="column">
            <p>{{ message.body }}</p>
            <p><small>{{ message.date | time}}</small></p>
-           <md-icon ng-if="message.type === 1"md-svg-icon="icons/ic_call_received_black_18px.svg" class="md-secondary"></md-icon>
-           <md-icon ng-if="message.type === 2"md-svg-icon="icons/ic_call_made_black_18px.svg" class="md-secondary"></md-icon>
 
        </div>
      </md-list-item>
@@ -16,13 +16,13 @@
 </md-list>
 
 <div id="chatbox">
-    <form name="messageForm" ng-cloak="">
+    <form name="messageForm" ng-cloak="" ng-submit="sendMessage()">
         <div layout layout-align="center center" flex>
           <md-input-container flex>
             <label class="text-black">Send message</label>
                 <input class="text-black" type="text" autofocus ng-model="messageInput">
           </md-input-container>
-          <md-button class="send-button md-fab md-primary" ng-disabled="!messageInput" aria-label="Back" ng-click="goBack()" >
+          <md-button class="send-button md-fab md-mini md-primary" ng-disabled="!messageInput" aria-label="Submit" type="submit" >
               <md-icon md-svg-icon="icons/ic_send_white_24px.svg"></md-icon>
           </md-button>
           </div>
