@@ -2,7 +2,7 @@
 
 const electron = require('electron');
 const app = electron.app;
-const io = require('socket.io')(6910);
+const io = require('socket.io')(6565);
 
 // node goes crazy if this is not here, because there are >11 EventEmitters
 // require('events').EventEmitter.prototype._maxListeners = 100;

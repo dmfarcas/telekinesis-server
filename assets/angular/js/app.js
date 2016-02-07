@@ -18,7 +18,7 @@ angular.module('telekinesisServer', ['ngMaterial', 'ngRoute', 'telekinesisServer
 	};
 })
 
-//From:
+// From:
 // http://stackoverflow.com/questions/18006334/updating-time-ago-values-in-angularjs-and-momentjs
 .filter('time', ['$interval', function($interval) {
 	// trigger digest every 60 seconds
