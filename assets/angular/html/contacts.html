@@ -1,17 +1,17 @@
+
+<md-subheader class="contacts-header">
+    <div layout="row">
+        <md-input-container flex class="search-container" md-no-float>
+        <md-icon md-svg-icon="icons/ic_search_black_24px.svg"></md-icon>
+        <input ng-model="searchText.displayName" placeholder="Search by name or phone number" flex esccancel>
+        <md-icon md-svg-src="icons/ic_close_black_24px.svg" ng-show="searchText" ng-click="clearText()"></md-icon>
+    </md-input-container>
+    </div>
+</md-subheader>
 <section>
     <!-- SUBHEADER -->
-    <md-subheader class="md-whiteframe-glow-z5">
-        <div layout="row">
-            <md-input-container flex>
 
-            <!-- SEARCH FUNCTION -->
-            <md-icon md-svg-icon="icons/ic_search_black_24px.svg"></md-icon>
-            <input ng-model="searchText.displayName" placeholder="Search by name or phone number" flex esccancel>
-            <md-icon md-svg-src="icons/ic_close_black_24px.svg" ng-show="searchText" ng-click="clearText()"></md-icon>
-        </md-input-container>
-        </div>
 
-    </md-subheader>
     <div layout="row" layout-sm="column" layout-align="space-around" ng-show="contacts.length === 0" class="ng-hide">
   <md-progress-circular md-diameter="60" md-mode="indeterminate"></md-progress-circular>
 </div>

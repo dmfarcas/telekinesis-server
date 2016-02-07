@@ -9,6 +9,7 @@
 	<link rel="stylesheet" href="html/style.css" media="screen" title="no title" charset="utf-8">
 	<link rel="stylesheet" href="../../node_modules/angular-material/angular-material.css" media="screen" title="no title" charset="utf-8">
 	<script src="../../node_modules/angular/angular.js" charset="utf-8"></script>
+	<script src="../../node_modules/moment/moment.js" charset="utf-8"></script>
 	<script src="../../node_modules/angular-animate/angular-animate.js" charset="utf-8"></script>
 	<script src="../../node_modules/angular-aria/angular-aria.js" charset="utf-8"></script>
 	<script src="../../node_modules/angular-material/angular-material.js" charset="utf-8"></script>
@@ -40,27 +41,26 @@
 		</md-sidenav>
 
 		<!-- TITLEBAR -->
-		<md-content flex ng-controller="titleCtrl">
-			<md-toolbar md-scroll-shrink>
+
+		<div layout="column" layout-fill>
+			<md-toolbar  ng-controller="titleCtrl">
 				<div class="md-toolbar-tools">
 					<md-button class="md-icon-button" aria-label="Menu" hide-gt-sm ng-click="toggleFilter( 'left') " ng-show="!checkView" class="ng-hide">
 						<md-icon md-svg-icon="icons/menuicon.svg "></md-icon>
 					</md-button>
-					<md-button class="md-icon-button" aria-label="Back" ng-click="goBack()" >
-		                <md-icon md-svg-icon="icons/ic_arrow_back_white_24px.svg "></md-icon>
-		            </md-button>
+					<md-button class="md-icon-button" aria-label="Back" ng-click="goBack()">
+						<md-icon md-svg-icon="icons/ic_arrow_back_white_24px.svg "></md-icon>
+					</md-button>
 					<h2><span class="md-title">{{Page.title()}}</span></h2>
-					<h2>{{}}</h2>
 					<!-- <span flex></span> -->
 				</div>
-
 			</md-toolbar>
 
+			<md-content>
+				<ng-view></ng-view>
+			</md-content>
 
-			<ng-view></ng-view>
-
-		</md-content>
+		</div>
 </body>
-</div>
 
 </html>

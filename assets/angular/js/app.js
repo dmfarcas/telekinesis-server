@@ -18,47 +18,86 @@ angular.module('telekinesisServer', ['ngMaterial', 'ngRoute', 'telekinesisServer
 	};
 })
 
-.factory('messages', function($q) {
-	const ipcRender = require("electron").ipcRenderer;
+//From:
+// http://stackoverflow.com/questions/18006334/updating-time-ago-values-in-angularjs-and-momentjs
+.filter('time', ['$interval', function($interval) {
+	// trigger digest every 60 seconds
+	$interval(function() {}, 60000);
 
-	//Request messages
-	ipcRender.send('gimmemessages');
-	let q = $q.defer();
-	let messages = [];
-	//TODO: chain promises, combine message data with contact data, return promise result.
-	ipcRender.on('messages', (event, message) => {
-		console.log("Received messages.");
-		if (message) {
-			q.resolve(message);
-		} else {
-			q.reject('Cannot retrieve messages');
-		}
-	});
-	return q.promise;
+	function fromNowFilter(time) {
+		return moment(time).fromNow();
+	}
+
+
+	fromNowFilter.$stateful = true;
+	return fromNowFilter;
+}])
+
+.factory('dataFactory', function($q) {
+	const ipcRender = require("electron").ipcRenderer;
+	let messagePromise = $q.defer();
+	let contactPromise = $q.defer();
+
+	function askForMessages() {
+		ipcRender.send('gimmemessages');
+		ipcRender.on('messages', (event, message) => {
+			if (message) {
+				messagePromise.resolve(message);
+				console.log("Received messages.");
+			} else {
+				messagePromise.reject('Cannot retrieve messages');
+			}
+		});
+		return messagePromise.promise;
+	}
+
+	function askForContacts() {
+		ipcRender.send('gimmecontacts');
+		ipcRender.on('contactsinit', (event, contact) => {
+			if (contact) {
+				contactPromise.resolve(contact);
+			} else {
+				contactPromise.reject('Cannot retrieve contacts');
+			}
+		});
+		return contactPromise.promise;
+	}
+
+
+	return $q.all([askForMessages(), askForContacts()])
+		.then(function(data) {
+			// REGEX TODO: \b[\s()\d-]{6,}\d\b
+			//
+			//Create and sort the contact list by phone number
+			const re = /\b[\s()\d-]{6,}\d\b/g;
+			let sortedNumbers = [];
+			data[1].forEach((contact) => {
+				console.log(contact.phoneNumbers[0].number.replace(re, ''));
+				sortedNumbers.push({
+					number: contact.phoneNumbers[0].number,
+					displayName: contact.displayName
+				});
+			});
+
+			sortedNumbers.sort((a, b) => {
+				return a.number - b.number;
+			});
+
+			//Assign name to message array
+			data[0].forEach((toFind, messagepos) => {
+				sortedNumbers.filter(function(contact, sortedpos) {
+					if (contact.number === toFind.address) {
+						data[0][messagepos].displayName = contact.displayName;
+					}
+				});
+			});
+			return data;
+
+		}, function(err) {
+			console.log("Could not get combined data and messages array.");
+		});
 })
 
-
-
-
-.factory('contacts', function($q) {
-	const ipcRender = require("electron").ipcRenderer;
-	let q = $q.defer();
-
-	//Request contacts
-	ipcRender.send('gimmecontacts');
-	ipcRender.on('contactsinit', (event, contact) => {
-		if (contact) {
-			q.resolve(contact);
-		} else {
-			q.reject('Cannot retrieve contacts');
-		}
-		// console.log("CONTACTSINIT");
-		// contact.forEach((ret) => {
-		// 	console.log(ret);
-		// });
-	});
-	return q.promise;
-})
 
 .config(['$routeProvider',
 	function($routeProvider) {
@@ -69,7 +108,7 @@ angular.module('telekinesisServer', ['ngMaterial', 'ngRoute', 'telekinesisServer
 			controller: 'notificationsCtrl'
 		}).
 
-        when('/settings', {
+		when('/settings', {
 			templateUrl: 'html/settings.html',
 			controller: 'settingsCtrl'
 		}).
@@ -84,10 +123,10 @@ angular.module('telekinesisServer', ['ngMaterial', 'ngRoute', 'telekinesisServer
 			controller: 'messagesCtrl'
 		}).
 
-		when('/messages/:thread_id', {
-        templateUrl: 'html/chat.html',
-        controller: 'chatCtrl'
-      }).
+		when('/messages/:thread_id/:name', {
+			templateUrl: 'html/chat.html',
+			controller: 'chatCtrl'
+		}).
 
 		otherwise({
 			redirectTo: '/contacts'
