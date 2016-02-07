@@ -1,23 +1,32 @@
+<div id="chat">
 
 <md-list>
-<md-list-item class="md-2-line" ng-repeat="message in messages | filter: {thread_id: hash}:true  | orderBy: 'date'" class="md-warn">
+    <div layout="column">
+<md-list-item class="md-3-line" ng-repeat="message in messages | filter: {thread_id: hash}:true  | orderBy: 'date'" class="md-warn" >
         <img src="icons/contactphoto.jpg" class="md-avatar">
        <div class="md-list-item-text" layout="column">
-           <p ng-if="message.type === 1">This person sent:</p>
-           <p ng-if="message.type === 2">You sent:</p>
            <p>{{ message.body }}</p>
            <p><small>{{ message.date | time}}</small></p>
+           <md-icon ng-if="message.type === 1"md-svg-icon="icons/ic_call_received_black_18px.svg" class="md-secondary"></md-icon>
+           <md-icon ng-if="message.type === 2"md-svg-icon="icons/ic_call_made_black_18px.svg" class="md-secondary"></md-icon>
+
        </div>
      </md-list-item>
+ </div>
 </md-list>
-<form name="messageForm" ng-cloak="">
-    <div layout layout-align="center center" flex>
-      <md-input-container flex>
-        <label class="text-black">Send message</label>
-        <input class="text-black" type="text" autofocus ng-model="messageInput">
-      </md-input-container>
-      <md-button class="md-fab md-primary" ng-disabled="!messageInput" aria-label="Back" ng-click="goBack()" >
-          <md-icon md-svg-icon="icons/ic_send_white_24px.svg"></md-icon>
-      </md-button>
-      </div>
-</form>
+
+<div id="chatbox">
+    <form name="messageForm" ng-cloak="">
+        <div layout layout-align="center center" flex>
+          <md-input-container flex>
+            <label class="text-black">Send message</label>
+                <input class="text-black" type="text" autofocus ng-model="messageInput">
+          </md-input-container>
+          <md-button class="send-button md-fab md-primary" ng-disabled="!messageInput" aria-label="Back" ng-click="goBack()" >
+              <md-icon md-svg-icon="icons/ic_send_white_24px.svg"></md-icon>
+          </md-button>
+          </div>
+    </form>
+</div>
+
+</div>

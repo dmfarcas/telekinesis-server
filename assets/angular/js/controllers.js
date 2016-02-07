@@ -50,20 +50,21 @@ angular.module('telekinesisServer.controllers', [])
 	$scope.message = 'THERE SHALL BE NOTIFICATIONS';
 })
 
-.controller('titleCtrl', ($scope, Page, $routeParams, $window) => {
+.controller('titleCtrl', ($scope, Page, $routeParams, $window, $rootScope) => {
 	$scope.Page = Page;
-	let checkView = $routeParams.thread_id;
-	// $scope.$apply(function() {});
-	$scope.checkView = checkView;
+	$rootScope.$on('showBack', function(ev, args) {
+        $scope.checkView = args;
+        });
 	$scope.goBack = function() {
 		$window.history.back();
 	};
 })
 
-.controller('messagesCtrl', ($scope, Page, $timeout, dataFactory, $location) => {
+.controller('messagesCtrl', ($scope, Page, $timeout, dataFactory, $location, $rootScope) => {
 	Page.setTitle('Messages');
 	$scope.messages = [];
 	$scope.mpromise = dataFactory;
+    $rootScope.$emit('showBack', 0);
 	$scope.mpromise.then(function(solved) {
 		console.log("Messages loaded");
 		$scope.messages = solved[0];
@@ -77,10 +78,11 @@ angular.module('telekinesisServer.controllers', [])
 	};
 })
 
-.controller('chatCtrl', ($scope, $routeParams, Page, dataFactory) => {
+.controller('chatCtrl', ($scope, $routeParams, Page, dataFactory, $rootScope) => {
 	let hash = $routeParams.thread_id;
 	// I'm pretty sure there's a better way to get rid of the ":" without substring.
 	Page.setTitle($routeParams.name);
+    $rootScope.$emit('showBack', 1);
 	$scope.hash = Number(hash);
 	$scope.messages = [];
 	$scope.mpromise = dataFactory;

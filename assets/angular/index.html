@@ -45,10 +45,10 @@
 		<div layout="column" layout-fill>
 			<md-toolbar  ng-controller="titleCtrl">
 				<div class="md-toolbar-tools">
-					<md-button class="md-icon-button" aria-label="Menu" hide-gt-sm ng-click="toggleFilter( 'left') " ng-show="!checkView" class="ng-hide">
+					<md-button class="md-icon-button" aria-label="Menu" hide-gt-sm ng-click="toggleFilter( 'left')">
 						<md-icon md-svg-icon="icons/menuicon.svg "></md-icon>
 					</md-button>
-					<md-button class="md-icon-button" aria-label="Back" ng-click="goBack()">
+					<md-button class="md-icon-button" aria-label="Back" ng-click="goBack()" ng-show="checkView" class="ng-hide">
 						<md-icon md-svg-icon="icons/ic_arrow_back_white_24px.svg "></md-icon>
 					</md-button>
 					<h2><span class="md-title">{{Page.title()}}</span></h2>

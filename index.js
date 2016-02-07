@@ -30,7 +30,9 @@ function onClosed() {
 function createMainWindow() {
 	const win = new electron.BrowserWindow({
 		width: 600,
-		height: 400
+		height: 400,
+		minWidth: 966,
+		minHeight: 568
 	});
 
 	win.loadURL(`file://${__dirname}/assets/angular/index.html`);

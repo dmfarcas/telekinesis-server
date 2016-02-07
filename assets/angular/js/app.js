@@ -27,11 +27,24 @@ angular.module('telekinesisServer', ['ngMaterial', 'ngRoute', 'telekinesisServer
 	function fromNowFilter(time) {
 		return moment(time).fromNow();
 	}
-
-
 	fromNowFilter.$stateful = true;
 	return fromNowFilter;
 }])
+
+.factory('showBack', function() {
+	let show;
+	return {
+		on: function() {
+			show = 1;
+		},
+		off: function() {
+			show = 0;
+		},
+		get: function() {
+			return show;
+		}
+	};
+})
 
 .factory('dataFactory', function($q) {
 	const ipcRender = require("electron").ipcRenderer;
